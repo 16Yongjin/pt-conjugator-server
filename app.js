@@ -45,7 +45,7 @@ const a = {
 const readFile = promisify(fs.readFile)
 const trim = s => s.trim()
 const verbPath = verb => `content/${verb[0]}/${verb}.json`
-const getConj = _.pipe(trim, verbPath, readFile, JSON.parse, v => v.conjugations, _.reject(c => c.sort == 1 || c.sort == 4), _.groupBy('group'))
+const getConj = _.pipe(trim, verbPath, readFile, JSON.parse, v => v.conjugations, _.reject(c => ![0, 2, 3, 4].includes(c.group_sort) && c.sort == 1 || c.sort == 4), _.groupBy('group'))
 
 const categoryPath = c => `categories/${c}.json`
 const verbCategories = {}

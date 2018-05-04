@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const { getConj, searchVerb } = require('./app')
+const { getConj, searchVerb, getRoots } = require('./app')
 const app = express()
 const PORT = process.env.PORT || 5000
 
@@ -19,6 +19,13 @@ app.get('/conj/:query', async (req, res) => {
   const { query } = req.params
   if (!query) res.status(404).send('No query!')
   try { res.send(await getConj(query)) } 
+  catch (e) { res.status(404).send(e.message) }
+})
+
+app.get('/root/:query', async (req, res) => {
+  const { query } = req.params
+  if (!query) res.status(404).send('No query!')
+  try { res.send(await getRoots(query)) } 
   catch (e) { res.status(404).send(e.message) }
 })
 

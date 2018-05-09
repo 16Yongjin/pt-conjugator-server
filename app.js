@@ -10,11 +10,11 @@ const remove2ndPerson = _.reject(c => ![0, 2, 3, 4].includes(c.group_sort) && c.
 
 const getConj = _.pipe(trim, verbPath, getJson, v => v.conjugations, remove2ndPerson, _.groupBy('group'))
 
-const categoryPath = verb => `categories/${verb[0]}.json`
+const categoryPath = verb => `acs/${verb[0]}.json`
 const verbCategories = {}
 const cachedCategory = verb => verbCategories[verb[0]]
 const memoize = k => v => (verbCategories[k] = v, v)
-const startsWith = w => str => str.startsWith(w)
+const startsWith = w => arr => arr[0].startsWith(w)
 const getCategory = _.pipe(trim, _.first)
 const getVerbIndex = category => cachedCategory(category) || _.go(category, categoryPath, getJson, memoize(category))
 const takeFive = verb => _.pipe(L.filter(startsWith(verb)), L.take(5))

@@ -25,7 +25,7 @@ app.get('/conj/:query', async (req, res) => {
 app.get('/root/:query', async (req, res) => {
   const { query } = req.params
   if (!query) res.status(404).send('No query!')
-  try { res.send(await getRoots(query)) } 
+  try { res.send(await getRoots(query) || []) } 
   catch (e) { res.status(404).send(e.message) }
 })
 
